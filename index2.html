@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 	<style>
 		td, th { border: 1px black solid; }
 		.rollover { background-color: #ccc; }
@@ -199,7 +200,7 @@
 		
 	</script>
 </head>
-	
+
 <body>
 	<header id="masthead">
     	<h1>Accessible Table Creation App</h1>
@@ -210,7 +211,9 @@
     	<div class= "col-md-12">
             <form>
                 <h3>Paste table code in here:</h3>
+                
                 <textarea id="table_source" rows=5 cols=50></textarea>
+                
                 <br/>
                 <input type="button" id="button_parse"  class="btn"value="Parse me!" onClick="parse_table(this.form);" />
                 
@@ -244,10 +247,13 @@
 	</div>
     </div>
     
+   
+    
         
     
     
             
     	
 </body>
+
 </html>
