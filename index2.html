@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 	<style>
 		td, th { border: 1px black solid; }
 		.rollover { background-color: #ccc; }
@@ -202,11 +201,81 @@
 </head>
 
 <body>
-	<header id="masthead">
-    	<h1>Accessible Table Creation App</h1>
-    </header>
+
+<div class="col-md-2" style="margin-top:10px;">
+		<ul class="nav nav-pills nav-stacked" style="text-align:right;">
+			<li class="active">
+				<a href="#toc-form" data-toggle="tab">
+					<span class="glyphicon glyphicon-pencil pull-left"></span>
+					Input
+				</a>
+			</li>
+			<li class="result" data-bind="visible:HasRun" style=""><a href="#toc-result-toc-tab" class="text-success" data-toggle="tab" id="toc-result-toc-tab-tab">Set Header IDs</a></li>
+			<li class="result" data-bind="visible:HasRun" style=""><a href="#toc-result-body-tab" class="text-success" data-toggle="tab">Result Body</a></li>
+		</ul>
+	</div>
     
-    <div id="content" class="container">
+    <div class="col-md-10">
+		<div class="tab-content">
+
+			<div class="tab-pane active" id="toc-form">
+				<form role="form" class="form-horizontal" data-bind="with:FormVals">
+					<div class="row">
+						<fieldset class="col-md-8">
+							<div class="form-group">
+								<label class="col-md-12 control-label" for="main-input" style="text-align:left;">HTML</label>
+								<textarea id="table_source" class="form-control" rows=5 cols=50></textarea>
+                                <br/>
+                                <input type="button" id="button_parse"  class="btn"value="Parse me!" onClick="parse_table(this.form);" />
+                				<input type="button" id="button_headers" class="btn" value="Set Header IDs" onClick="set_headers();"/>
+                                <br/>
+                                <h4 style="margin-top:50px;">Active Cell Header IDs: <span id="active_cell"></span></h4>
+            					<h4 style="margin-bottom:20px;">Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
+            
+            <span id="table_render">
+            </span>
+            
+            <input type="button" id="button_get_output" class="btn" value="Get My Table!" onClick="parse_output(this.form);" />
+                <br/><br/>
+                <h3>Accessible Table Code:</h3>
+                <textarea id="table_output" class="form-control" rows=5 cols=50></textarea>
+							</div>
+						</fieldset>
+
+						
+					</div>
+				</form>
+			</div>
+
+			<div class="tab-pane fade" id="toc-result-toc-tab" data-bind="visible:HasRun" style="display: none;">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="well" data-bind="html:ResultToc">
+                        	<h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
+            				<h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
+                            <span id="table_render">
+            </span>
+                        </div>
+					</div>
+					<div class="col-md-6">
+						<h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
+            			<h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
+            
+            <span id="table_render">
+            </span>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="toc-result-body-tab" data-bind="visible:HasRun" style="display: none;">
+				<p class="lead">The body with the generated IDs</p>
+				<textarea id="toc-result-body" class="well" disabled="disabled" style="width:100%; height:600px;" data-bind="value:ResultBody">&gt;</textarea>
+			</div>
+		</div>
+	</div>
+	
+    
+    <!--<div id="content" class="container">
     	
 	<div class= "row">
     	<div class= "col-md-12">
@@ -241,7 +310,7 @@
             </form>     
         </div>     
 	</div>
-    </div>
+    </div>-->
     
    
     
