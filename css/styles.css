@@ -33,3 +33,16 @@ textarea{
 #button_parse, #button_get_output{
 	margin-left:0;	
 }
+
+#masthead{
+	height:100px;	
+	background-color:#428bca;
+	width:100%;
+	color:white;
+	text-align:Center;
+}
+
+#masthead h1{
+	margin-top:0px;	
+	line-height:100px;
+}
