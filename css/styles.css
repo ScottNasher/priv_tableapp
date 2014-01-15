@@ -1,0 +1,26 @@
+body{
+	margin:0 auto;	
+}
+
+*{
+	/*border:1px solid red;	*/
+}
+
+textarea{
+	width:90%;
+	height:200px;
+}
+
+.btn{
+	background-color:#428bca;
+	color:white;
+}
+
+.btn:hover{
+	color:white;
+	background-color:#3276b1;
+}
+
+.btn:active{
+	color:white;	
+}
