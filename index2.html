@@ -203,11 +203,11 @@
 	<div class= "row">
     	<div class= "col-md-12">
             <form>
-                <p>Paste table code in here:</p>
+                <h3>Paste table code in here:</h3>
                 <textarea id="table_source" rows=5 cols=50></textarea>
                 <br/>
                 <input type="button" id="button_parse"  class="btn"value="Parse me!" onClick="parse_table(this.form);" />
-                <br/>
+                
                 <input type="button" id="button_headers" class="btn" value="Set Header IDs" onClick="set_headers();" />
             </form>
         </div>
@@ -216,8 +216,8 @@
     <div class= "row">
     	<div class="col-md-12">
     	
-            <p>Active Cell Header IDs: <span id="active_cell"></span></p>
-            <p>Active Cell Headers: <span id="active_cell_text">Do Later</span></p>
+            <h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
+            <h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
         
             <span id="table_render">
             
@@ -229,7 +229,7 @@
         <div class= "col-md-12">
             
             <form>
-                <p>Accessible Table Code:</p>
+                <h3>Accessible Table Code:</h3>
                 <textarea id="table_output" rows=5 cols=50></textarea>
                 <br/>
                 <input type="button" id="button_get_output" class="btn" value="Get My Table!" onClick="parse_output(this.form);" />
