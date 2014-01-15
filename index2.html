@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/bootstrap.min.js"></script>
+	<style>
+		td, th { border: 1px black solid; }
+		.rollover { background-color: #ccc; }
+		.selected { background-color: blue; }
+		.flagged { background-color: yellow; }
+	</style>
+	<script>
+		var active_cell = false;
+		var checker = false; // start in non-checker mode
+		
+		function checker_off() {
+			$( "td" ).off('mouseenter');
+			$( "td" ).off('mouseleave');
+			$( "th" ).off('mouseenter');
+			$( "th" ).off('mouseleave');
+			checker = false;
+		}
+		
+		function checker_on() {
+			//console.log('test');
+			$( "td" ).mouseenter(function() {
+				activate_headers(this.headers);
+				//$( this ).css( "background-color" , "#ccc");
+				$( this ).addClass("rollover");
+			});	
+			
+			$( "td" ).mouseleave(function() {
+				deactivate_headers(this.headers);
+				//$( this ).css( "background-color" , "white");
+				$( this ).removeClass("rollover");
+			});
+			
+			$( "th" ).mouseenter(function() {
+				activate_headers(this.headers);
+				//$( this ).css( "background-color" , "#ccc");
+				$( this ).addClass("rollover");
+			});	
+			
+			$( "th" ).mouseleave(function() {
+				deactivate_headers(this.headers);
+				//$( this ).css( "background-color" , "white");
+				$( this ).removeClass("rollover");
+				
+			});
+			checker = true;
+		}
+
+		// highlight headers in the list
+		function activate_headers(header_list) {
+			var headers = header_list.split(' ');
+			for (var i = 0; i < headers.length; i++) {
+				//$("#" + headers[i]).css( "background-color", "yellow");
+				$("#" + headers[i]).addClass("flagged");
+			}
+		}
+		
+		// clear highlighted headers in the list
+		function deactivate_headers(header_list) {
+			var headers = header_list.split(' ');
+			for (var i = 0; i < headers.length; i++) {
+				$("#" + headers[i]).removeClass("flagged");
+			}
+		}
+		
+		function update_stats (header_list) {
+			
+		}
+		
+		function parse_table(form) {
+			// parse the table and put it into the field below
+			//console.log($("#table_source").value);
+			$("#table_render").html(form.table_source.value);
+			prepare_table();
+		}
+		
+		function id_toggle(add_to_header, header_list) {
+			var headers = header_list.split(' ');
+			if ($.inArray(add_to_header, headers) == -1) {
+				header_list += " " + add_to_header;
+			}
+			else { // it is in the array...drop it
+				header_list = ''; // clear this first
+				for (var i = 0; i < headers.length; i++) {
+					if (headers[i] != add_to_header) {
+						header_list += headers[i] + " ";
+					}
+				}
+			}
+			return $.trim(header_list);
+		}
+
+		function prepare_table() {
+			checker_on();
+			
+			$( "td" ).click(function() {
+				checker_off();
+				// remove any current active_cell
+				if (active_cell) {
+					active_cell.removeClass("selected");
+					deactivate_headers(active_cell[0].headers);
+					// if clicking on the current active_cell, nullify the variable and leave
+					if ($(this).is(active_cell)) {
+						active_cell = null;
+						$("#active_cell").text('');
+						$("#active_cell_text").text('');
+						checker_on();
+						return;
+					}
+				}
+				// get a list of the headers for this td
+				active_cell = $( this );
+				active_cell.removeClass("rollover");
+				active_cell.addClass("selected");
+				$("#active_cell").text(active_cell[0].headers);
+				
+				// show the header text in order
+				var headers = this.headers.split(' ');
+				var header_text = '';
+				for (var i = 0; i < headers.length; i++) {
+					header_text += $( "#" + headers[i] ).text() + ', ';
+				}
+				$("#active_cell_text").text(header_text);
+				activate_headers(active_cell[0].headers);
+			});
+			
+			$( "th" ).click(function () {
+				if ($(this).is(active_cell)) {
+					// we're done with this cell being active
+					deactivate_headers(active_cell[0].headers);
+					active_cell.removeClass("selected");
+					active_cell = null;
+					$("#active_cell").text('');
+					$("#active_cell_text").text('');
+					checker_on();
+				}
+				else if (active_cell) { // if there is an active td
+					// add this cell's ID to the headers attribute if not already there
+					//console.log(active_cell[0].headers);
+					deactivate_headers(active_cell[0].headers);
+					active_cell[0].headers = id_toggle(this.id, active_cell[0].headers);
+					activate_headers(active_cell[0].headers);
+				}
+				else {
+					// try to make this the active_cell
+					checker_off();
+					// get a list of the headers for this td
+					active_cell = $( this );
+					active_cell.removeClass("rollover");
+					active_cell.addClass("selected");
+					$("#active_cell").text(active_cell[0].headers);
+
+					// show the header text in order
+					var headers = this.headers.split(' ');
+					var header_text = '';
+					for (var i = 0; i < headers.length; i++) {
+						header_text += $( "#" + headers[i] ).text() + ', ';
+					}
+					$("#active_cell_text").text(header_text);
+				}
+				
+			});
+		}
+		
+		function set_headers() {
+			// find the table object within our target span
+			var table_object = $("#table_render").children("table")[0];
+			var table_id = table_object.id
+			//console.log(table_id);
+
+			// get a list of headers...traverse them adding to their IDs
+			var header_objects = $("#" + table_id + " th");
+			
+			for (var i = 0; i < header_objects.length; i++) {
+				$(header_objects[i]).attr("id", table_id + "-" + i);
+			}
+		}
+		
+		function parse_output(form) {
+			if (active_cell) {
+				$("#active_cell").click();
+			}
+			// drop all of the classes that may be in the table created by us			
+			form.table_output.value = $("#table_render").html();
+		}
+		
+		$( document ).ready(function() {
+
+		});
+		
+	</script>
+</head>
+<body class="container">
+	<div class= "row">
+    	<div class= "col-md-12">
+            <form>
+                <p>Paste table code in here:</p>
+                <textarea id="table_source" rows=5 cols=50></textarea>
+                <br/>
+                <input type="button" id="button_parse"  class="btn"value="Parse me!" onClick="parse_table(this.form);" />
+                <br/>
+                <input type="button" id="button_headers" class="btn" value="Set Header IDs" onClick="set_headers();" />
+            </form>
+        </div>
+    </div>
+        
+    <div class= "row">
+    	<div class="col-md-12">
+    	
+            <p>Active Cell Header IDs: <span id="active_cell"></span></p>
+            <p>Active Cell Headers: <span id="active_cell_text">Do Later</span></p>
+        
+            <span id="table_render">
+            
+            </span>
+    	</div>
+    </div>
+    
+    <div class= "row">
+        <div class= "col-md-12">
+            
+            <form>
+                <p>Accessible Table Code:</p>
+                <textarea id="table_output" rows=5 cols=50></textarea>
+                <br/>
+                <input type="button" id="button_get_output" class="btn" value="Get My Table!" onClick="parse_output(this.form);" />
+            </form>     
+        </div>     
+	</div>
+    
+    
+        
+    
+    
+            
+    	
+</body>
+</html>
