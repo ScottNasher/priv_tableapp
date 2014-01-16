@@ -1,0 +1,7 @@
+Fixes/Additions
+
+-Auto set ID?
+-Some tables have trs that need to be tds
+-completing task moves process forward auto
+-some blank classes?
+-active cell header info in real time (mouseover maybe)

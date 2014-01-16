@@ -33,6 +33,6 @@ textarea{
 	margin: 10px;
 }
 
-#button_parse, #button_get_output{
+#button_parse, #button_headers, #button_get_output{
 	margin-left:0;	
 }
