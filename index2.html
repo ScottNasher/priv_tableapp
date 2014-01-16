@@ -18,6 +18,8 @@
 		var active_cell = false;
 		var checker = false; // start in non-checker mode
 		
+		
+		
 		function checker_off() {
 			$( "td" ).off('mouseenter');
 			$( "td" ).off('mouseleave');
@@ -81,6 +83,8 @@
 			//console.log($("#table_source").value);
 			$("#table_render").html(form.table_source.value);
 			prepare_table();
+			
+			
 		}
 		
 		function id_toggle(add_to_header, header_list) {
@@ -168,7 +172,10 @@
 					$("#active_cell_text").text(header_text);
 				}
 				
+				
 			});
+			
+			
 		}
 		
 		function set_headers() {
@@ -205,20 +212,20 @@
 <div class="col-md-2" style="margin-top:10px;">
 		<ul class="nav nav-pills nav-stacked" style="text-align:right;">
 			<li class="active">
-				<a href="#toc-form" data-toggle="tab">
+				<a href="#table-form" data-toggle="tab">
 					<span class="glyphicon glyphicon-pencil pull-left"></span>
 					Input
 				</a>
 			</li>
-			<li class="result" data-bind="visible:HasRun" style=""><a href="#toc-result-toc-tab" class="text-success" data-toggle="tab" id="toc-result-toc-tab-tab">Set Header IDs</a></li>
-			<li class="result" data-bind="visible:HasRun" style=""><a href="#toc-result-body-tab" class="text-success" data-toggle="tab">Result Body</a></li>
+			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-table-tab" class="text-success" data-toggle="tab" id="table-result-table-tab-tab">Set Header IDs</a></li>
+			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-body-tab" class="text-success" data-toggle="tab">Result Body</a></li>
 		</ul>
 	</div>
     
     <div class="col-md-10">
 		<div class="tab-content">
 
-			<div class="tab-pane active" id="toc-form">
+			<div class="tab-pane active" id="table-form">
 				<form role="form" class="form-horizontal" data-bind="with:FormVals">
 					<div class="row">
 						<fieldset class="col-md-8">
@@ -227,18 +234,16 @@
 								<textarea id="table_source" class="form-control" rows=5 cols=50></textarea>
                                 <br/>
                                 <input type="button" id="button_parse"  class="btn"value="Parse me!" onClick="parse_table(this.form);" />
-                				<input type="button" id="button_headers" class="btn" value="Set Header IDs" onClick="set_headers();"/>
-                                <br/>
-                                <h4 style="margin-top:50px;">Active Cell Header IDs: <span id="active_cell"></span></h4>
-            					<h4 style="margin-bottom:20px;">Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
+                				
+                               
             
-            <span id="table_render">
-            </span>
+            <!--<span id="table_render">
+            </span>-->
             
-            <input type="button" id="button_get_output" class="btn" value="Get My Table!" onClick="parse_output(this.form);" />
+            <!--<input type="button" id="button_get_output" class="btn" value="Get My Table!" onClick="parse_output(this.form);" />
                 <br/><br/>
                 <h3>Accessible Table Code:</h3>
-                <textarea id="table_output" class="form-control" rows=5 cols=50></textarea>
+                <textarea id="table_output" class="form-control" rows=5 cols=50></textarea>-->
 							</div>
 						</fieldset>
 
@@ -247,29 +252,34 @@
 				</form>
 			</div>
 
-			<div class="tab-pane fade" id="toc-result-toc-tab" data-bind="visible:HasRun" style="display: none;">
+			<div class="tab-pane fade" id="table-result-table-tab" data-bind="visible:HasRun" >
 				<div class="row">
-					<div class="col-md-6">
-						<div class="well" data-bind="html:ResultToc">
+					<div class="col-md-10">
+						<div data-bind="html:ResultTable">
                         	<h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
             				<h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
+                            <input type="button" id="button_headers" class="btn" value="Set Header IDs" onClick="set_headers();"/>
                             <span id="table_render">
-            </span>
+            				</span>
+                            
                         </div>
 					</div>
-					<div class="col-md-6">
-						<h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
-            			<h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
-            
-            <span id="table_render">
-            </span>
-					</div>
+					
 				</div>
 			</div>
 
-			<div class="tab-pane fade" id="toc-result-body-tab" data-bind="visible:HasRun" style="display: none;">
-				<p class="lead">The body with the generated IDs</p>
-				<textarea id="toc-result-body" class="well" disabled="disabled" style="width:100%; height:600px;" data-bind="value:ResultBody">&gt;</textarea>
+			<div class="tab-pane fade" id="table-result-body-tab" data-bind="visible:HasRun" style="">
+				<!--<p class="lead">The body with the generated IDs</p>
+				<textarea id="toc-result-body" class="well" disabled="disabled" style="width:100%; height:600px;" data-bind="value:ResultBody">&gt;</textarea>-->
+                
+                
+                
+                <form>
+            	<input type="button" id="button_get_output" class="btn" value="Get My Table!" onClick="parse_output(this.form);" />
+                <br/><br/>
+                <h3>Accessible Table Code:</h3>
+                <textarea id="table_output" rows=5 cols=50></textarea>
+            </form>
 			</div>
 		</div>
 	</div>
