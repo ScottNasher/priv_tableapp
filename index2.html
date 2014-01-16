@@ -217,8 +217,8 @@
 					Input
 				</a>
 			</li>
-			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-table-tab" class="text-success" data-toggle="tab" id="table-result-table-tab-tab">Set Header IDs</a></li>
-			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-body-tab" class="text-success" data-toggle="tab">Result Body</a></li>
+			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-table-tab" class="text-success" data-toggle="tab" id="table-result-table-tab-tab"><span class="glyphicon glyphicon-pencil pull-left"></span>Set Header IDs</a></li>
+			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-body-tab" class="text-success" data-toggle="tab">Result Table</a></li>
 		</ul>
 	</div>
     
@@ -256,9 +256,11 @@
 				<div class="row">
 					<div class="col-md-10">
 						<div data-bind="html:ResultTable">
-                        	<h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
-            				<h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
+                        	
                             <input type="button" id="button_headers" class="btn" value="Set Header IDs" onClick="set_headers();"/>
+                            <br/><br/><br/>
+                            <h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
+            				<h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
                             <span id="table_render">
             				</span>
                             
