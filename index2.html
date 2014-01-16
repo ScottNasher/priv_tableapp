@@ -11,12 +11,16 @@
 	<style>
 		td, th { border: 1px black solid; }
 		.rollover { background-color: #ccc; }
-		.selected { background-color: blue; }
+		.done { background-color:pink;}
+		.selected { background-color: blue; !important }
 		.flagged { background-color: yellow; }
+		
 	</style>
 	<script>
 		var active_cell = false;
 		var checker = false; // start in non-checker mode
+		
+		var ELEM_TABLE_OUTPUT;
 		
 		
 		
@@ -84,6 +88,7 @@
 			$("#table_render").html(form.table_source.value);
 			prepare_table();
 			
+			$("#table-result-table-tab-tab").tab("show");
 			
 		}
 		
@@ -124,7 +129,9 @@
 				// get a list of the headers for this td
 				active_cell = $( this );
 				active_cell.removeClass("rollover");
+				active_cell.addClass("done");
 				active_cell.addClass("selected");
+				
 				$("#active_cell").text(active_cell[0].headers);
 				
 				// show the header text in order
@@ -146,6 +153,7 @@
 					$("#active_cell").text('');
 					$("#active_cell_text").text('');
 					checker_on();
+					
 				}
 				else if (active_cell) { // if there is an active td
 					// add this cell's ID to the headers attribute if not already there
@@ -157,6 +165,7 @@
 				else {
 					// try to make this the active_cell
 					checker_off();
+					
 					// get a list of the headers for this td
 					active_cell = $( this );
 					active_cell.removeClass("rollover");
@@ -180,16 +189,16 @@
 		
 		function set_headers() {
 			// find the table object within our target span
-			var table_object = $("#table_render").children("table")[0];
+			/*var table_object = $("#table_render").children("table")[0];
 			var table_id = table_object.id
 			//console.log(table_id);
 
 			// get a list of headers...traverse them adding to their IDs
-			var header_objects = $("#" + table_id + " th");
+			var header_objects = $("th", table_object);
 			
 			for (var i = 0; i < header_objects.length; i++) {
 				$(header_objects[i]).attr("id", table_id + "-" + i);
-			}
+			}*/
 		}
 		
 		function parse_output(form) {
@@ -197,11 +206,26 @@
 				$("#active_cell").click();
 			}
 			// drop all of the classes that may be in the table created by us			
-			form.table_output.value = $("#table_render").html();
+			$("#table_output").text($("#table_render").html());
+			
+			$("#table-result-tab-tab").tab("show");
 		}
 		
+		
+		
 		$( document ).ready(function() {
+			$("#table-result-table-tab-tab").on('shown.bs.tab', function(){
+					var table_object = $("#table_render").children("table")[0];
+			var table_id = table_object.id
+			//console.log(table_id);
 
+			// get a list of headers...traverse them adding to their IDs
+			var header_objects = $("th", table_object);
+			
+			for (var i = 0; i < header_objects.length; i++) {
+				$(header_objects[i]).attr("id", table_id + "-" + i);
+			}
+			});
 		});
 		
 	</script>
@@ -218,7 +242,7 @@
 				</a>
 			</li>
 			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-table-tab" class="text-success" data-toggle="tab" id="table-result-table-tab-tab"><span class="glyphicon glyphicon-pencil pull-left"></span>Set Header IDs</a></li>
-			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-body-tab" class="text-success" data-toggle="tab">Result Table</a></li>
+			<li class="result" data-bind="visible:HasRun" style=""><a href="#table-result-body-tab" class="text-success" data-toggle="tab" id="table-result-tab-tab">Result Table</a></li>
 		</ul>
 	</div>
     
@@ -233,7 +257,8 @@
 								<label class="col-md-12 control-label" for="main-input" style="text-align:left;">HTML</label>
 								<textarea id="table_source" class="form-control" rows=15 cols=50></textarea>
                                 <br/>
-                                <input type="button" id="button_parse"  class="btn"value="Parse me!" onClick="parse_table(this.form);" />
+                                <input type="button" id="button_parse"  class="btn btn-primary" value="Parse me!" onClick="parse_table(this.form);"  />
+                                
             <!--<span id="table_render">
             </span>-->
             
@@ -252,13 +277,13 @@
 					<div class="col-md-10">
 						<div data-bind="html:ResultTable">
                         	
-                            <input type="button" id="button_headers" class="btn" value="Set Header IDs" onClick="set_headers();"/>
+                           <!-- <input type="button" id="button_headers" class="btn btn-primary" value="Set Header IDs" onClick="set_headers();"/>-->
                             <br/><br/><br/>
                             <h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
             				<h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
                             <span id="table_render">
             				</span>
-                            
+                            <input type="button" id="button_get_output" class="btn btn-primary" value="Get My Table!" onClick="parse_output(this.form);" />
                         </div>
 					</div>
 				</div>
@@ -270,7 +295,7 @@
             	<div class="row"> 
                 	<div class="col-md-10">
                         <form>
-                        <input type="button" id="button_get_output" class="btn" value="Get My Table!" onClick="parse_output(this.form);" />
+                        
                         <br/><br/>
                         <h3>Accessible Table Code:</h3>
                         <textarea id="table_output" class="form-control" rows=15 cols=50></textarea>

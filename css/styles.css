@@ -6,33 +6,8 @@ body{
 	/*border:1px solid red;	*/
 }
 
-textarea{
-
-	
+#button_headers, #button_get_output{
+	margin-top:20px;	
 
 }
 
-.btn{
-	background-color:#428bca;
-	color:white;
-	
-}
-
-.btn:hover{
-	color:white;
-	background-color:#3276b1;
-	
-}
-
-.btn:active{
-	color:white;	
-}
-
-#button_parse, #button_headers, #button_get_output{
-	float:left;	
-	margin: 10px;
-}
-
-#button_parse, #button_headers, #button_get_output{
-	margin-left:0;	
-}
