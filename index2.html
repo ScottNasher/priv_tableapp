@@ -16,7 +16,7 @@ td, th {
 	background-color: #ccc;
 }
 td[headers*="-"]{
-	background-color:pink;
+	background-color: pink;
 }
 td.selected {
 	background-color: blue;
@@ -140,10 +140,6 @@ td.selected {
 		}
 
 		function prepare_table() {
-			
-		
-			
-		
 				
 			checker_on();
 			
@@ -246,6 +242,10 @@ td.selected {
 			$("#table-result-tab-tab").tab("show");
 		}
 		
+		function clear_table(form){
+				
+		}
+		
 		
 		
 		$( document ).ready(function() {
@@ -285,7 +285,7 @@ td.selected {
                   <input type="text" class="col-md-9 form-control" id="set-id" placeholder="Enter desired id tag">
                   <br/>
                   <label class="col-md-12 control-label" for="main-input" style="text-align:left;">HTML</label>
-                  <textarea id="table_source" class="form-control" rows=15 cols=50></textarea>
+                  <textarea id="table_source" class="form-control" rows=15 cols=50 placeholder="Enter table HTML"></textarea>
                   <br/>
                   <input type="button" id="button_parse"  class="btn btn-primary" value="Parse me!" onClick="parse_table(this.form);"  />
                   
@@ -297,9 +297,7 @@ td.selected {
                 <h3>Accessible Table Code:</h3>
                 <textarea id="table_output" class="form-control" rows=5 cols=50></textarea>--> 
                 </div>
-          </fieldset>
-              <fieldset class="col-md-6">
-          </fieldset>
+          
             </div>
       </form>
         </div>
@@ -307,15 +305,21 @@ td.selected {
           <div class="row">
         <div class="col-md-10">
               <div data-bind="html:ResultTable"> 
-            
+            <br/>
             <!-- <input type="button" id="button_headers" class="btn btn-primary" value="Set Header IDs" onClick="set_headers();"/>--> 
-            <br/>
-            <br/>
-            <br/>
+            
             <h4>Active Cell Header IDs: <span id="active_cell"></span></h4>
             <h4>Active Cell Headers: <span id="active_cell_text">Do Later</span></h4>
-            <span id="table_render"> </span>
+            
+            
+            
+            <span id="table_render">
+            
+            </span>
+            
             <input type="button" id="button_get_output" class="btn btn-primary" value="Get My Table!" onClick="parse_output(this.form);" />
+            &nbsp;
+            <input type="button" id="button_clear"  class="btn btn-primary" value="Clear Table" onClick="clear_table(this.form)"  />
           </div>
             </div>
       </div>
@@ -326,8 +330,7 @@ td.selected {
           <div class="row">
         <div class="col-md-10">
               <form>
-            <br/>
-            <br/>
+            
             <h3>Accessible Table Code:</h3>
             <textarea id="table_output" class="form-control" rows=15 cols=50></textarea>
           </form>

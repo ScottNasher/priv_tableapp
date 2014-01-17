@@ -6,8 +6,10 @@ body{
 	/*border:1px solid red;	*/
 }
 
-#button_headers, #button_get_output{
+#button_headers, #button_clear, #button_get_output{
 	margin-top:20px;	
 
 }
+
+
 

@@ -1,6 +1,7 @@
 Fixes/Additions
 
--Field to set ID
+
 -Some tables have trs that need to be tds
 -some blank classes?
 -active cell header info in real time (mouseover maybe)
+-clear button
