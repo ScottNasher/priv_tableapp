@@ -12,6 +12,10 @@
 td, th {
 	border: 1px black solid;
 }
+
+td:hover, th:hover{
+	cursor:pointer;
+}
 .rollover {
 	background-color: #ccc;
 }
@@ -243,7 +247,9 @@ td.selected {
 		}
 		
 		function clear_table(form){
-				
+			$(".selected").removeClass("selected");
+			$(".flagged").removeClass();
+			$("[headers*= '-']").removeAttr("headers");
 		}
 		
 		
