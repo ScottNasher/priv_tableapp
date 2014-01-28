@@ -5,3 +5,4 @@ Fixes/Additions
 -some blank classes?
 -active cell header info in real time (mouseover maybe)
 -clear button
+-Set thead,body,foot

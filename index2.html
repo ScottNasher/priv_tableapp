@@ -237,6 +237,11 @@ td.selected {
 		}
 		
 		function parse_output(form) {
+			
+			if ($("th").className == ""){
+				alert("test");
+			}
+			
 			if (active_cell) {
 				$("#active_cell").click();
 			}
